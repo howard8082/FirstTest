@@ -1,0 +1,26 @@
+﻿.sta .wrap-grid {
+    width: 800px;
+    height: 600px;
+    border: 1px solid #eaeaea;
+}
+
+/*
+顶部工具栏
+*/
+.sta .wrap-grid .topbar {
+    padding: 5px 10px;
+    border-bottom: 1px solid #eaeaea;
+    margin-bottom: 0px;
+}
+
+.sta .wrap-grid div {
+    clear: both;
+}
+
+.sta .wrap-grid td {
+    border: 1px dotted #cccccc;
+}
+
+.sta table tbody tr td {
+    height:36px;
+}
