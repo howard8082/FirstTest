@@ -9,23 +9,26 @@
 	<link rel="stylesheet" href="../css/sta_grid.css">
 	<link rel="stylesheet" href="../css/site.css">
 	<script src="../external/jquery/jquery.js"></script>
+	<script src="../ui/core.js"></script>
+	<script src="../ui/widget.js"></script>
+	<script src="../js/sta-grid.js"></script>
 </head>
 <body class="metro sta">
 <h3>表格控件</h3>
 
 <div class="container">
-    <div class="wrap-grid bg-" role="grid">
+    <div id="mygrid" class="wrap-grid" role="grid">
         <div class="topbar toolbar transparent">
             <button class="small"><i class="icon-plus on-left fg-gray"></i>新增</button>
             <button class="small"><i class="icon-minus on-left fg-gray"></i>删除</button>
         </div>
         <div class="wrap-grid-thead fg-white">
-            <table>
+            <table class="bg-bsBlue">
                 <tbody>
                     <tr>
-                        <td class="text-left bg-darkBlue">姓名</th>
-                        <td class="text-left bg-darkBlue">电话号码</th>
-                        <td class="text-left bg-darkBlue">家庭住址</th>
+                        <td class="text-left">姓名</th>
+                        <td class="text-left">电话号码</th>
+                        <td class="text-left">家庭住址</th>
                     </tr>
                 </tbody>
             </table>
@@ -74,39 +77,10 @@
     </div>
 </div>
 <script type="text/javascript">
-    
     $(function() {
-        /* 我可以通过width()获取当前的元素宽度，即使其没有赋值宽度 */
-        var cw = $(".dataTable thead tr th:nth-child(2)").width();
-        //alert(cw);
-        
-        // 我把第一个老外给去掉了
-        $(".dataTable tbody tr:nth-child(2)").remove();
-        
-        // 将内容与head宽度同步简单算法
-        var headerCount = $(".sta .wrap-grid .wrap-grid-thead table tbody tr td").size();
-        var columnCount = $(".sta .wrap-grid .wrap-grid-tbody table tbody tr:nth-child(1) td").size();
-        
-        if (headerCount !== columnCount) {
-            alert("表格头与内容列数不一致");
-            return;
-        }
-        
-        $(".sta .wrap-grid .wrap-grid-thead table tbody tr td").each(function(index) {
-            var hw = $(this).width();
-            var selector = ".sta .wrap-grid .wrap-grid-tbody table tbody tr:nth-child(1) td:nth-child(" + (index + 1) + ")";
-            var cw = $(selector).width();
-            if (cw > hw) {
-                $(this).width(cw);
-            }
-        });
-        
-        //alert($(".sta .wrap-grid .wrap-grid-tbody table tbody tr:nth-child(3) td:nth-child(1)").width());
-        
-        
-        // 控件使用的想法：
-        // 1, 表格数据来源应当是异步加载，即我可以留空tbody，全部由控件，根据json来填充
-        // 2, 
+        $("div#mygrid").sta_grid({
+                autoColumnWidth: true
+            });
     });
 </script>
 </body>

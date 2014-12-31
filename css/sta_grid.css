@@ -1,7 +1,14 @@
 ﻿.sta .wrap-grid {
-    width: 800px;
-    height: 600px;
     border: 1px solid #eaeaea;
+}
+
+.sta .wrap-grid div {
+    clear: both;
+}
+
+.sta .wrap-grid td {
+    height: 36px;
+    border: 1px dotted #cccccc;
 }
 
 /*
@@ -13,14 +20,6 @@
     margin-bottom: 0px;
 }
 
-.sta .wrap-grid div {
-    clear: both;
-}
-
-.sta .wrap-grid td {
-    border: 1px dotted #cccccc;
-}
-
-.sta table tbody tr td {
-    height:36px;
+.sta .wrap-grid .wrap-grid-thead table.bg-bsBlue {
+    background-color: #428bca;
 }
