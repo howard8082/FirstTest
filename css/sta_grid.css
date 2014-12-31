@@ -1,5 +1,6 @@
 ﻿.sta .wrap-grid {
     border: 1px solid #eaeaea;
+    width: 100%;
 }
 
 .sta .wrap-grid div {
@@ -9,6 +10,10 @@
 .sta .wrap-grid td {
     height: 36px;
     border: 1px dotted #cccccc;
+}
+
+.sta .wrap-grid .wrap-grid-thead, .sta .wrap-grid .wrap-grid-tbody {
+    width: 100%;
 }
 
 /*

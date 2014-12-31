@@ -19,7 +19,10 @@
     return $.widget("ui.sta_grid", {
         options: {
             // 自适应宽度
-            autoColumnWidth : true
+            autoColumnWidth : true,
+            
+            // callback
+            resize : null
         },
         
         // 表格当前各列的宽度
@@ -33,6 +36,9 @@
          * 重写widget的_create函数。对表格对象进行处理
          */
         _create: function () {
+            //this.element.bind('resize', );
+            //$(this).
+            $(window).resize(function() { this._fnCaculateColumnWidth(); this._refresh() });
             this._fnCaculateColumnWidth();
             this._refresh();
         },
@@ -61,8 +67,8 @@
                     totalWidth += c;
                 }
                 
-                if ( totalWidth <  this.element.parent().width() ) {
-                    var f = this.element.parent().width() / totalWidth;
+                if ( totalWidth <  this._fnGetWrapWidth() ) {
+                    var f = this._fnGetWrapWidth() / totalWidth;
                     totalWidth = 0;
                     for ( var i = 0; i < this._currentWidth.length; i++ ) {
                         totalWidth += this._currentWidth[ i ] = parseInt( f * this._currentWidth[ i ] );
@@ -76,7 +82,7 @@
                             idx = i;
                         }
                     }
-                    this._currentWidth[ idx ] += this.element.parent().width() - totalWidth;
+                    this._currentWidth[ idx ] += this._fnGetWrapWidth() - totalWidth;
                 }
                 
                 return;
@@ -89,6 +95,10 @@
                 tmp.push( $(this).width() );
             });
             return tmp;
+        },
+        
+        _fnGetWrapWidth: function () {
+            return this.element.width();
         },
         
         _refresh: function () {
