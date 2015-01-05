@@ -16,71 +16,53 @@
 <body class="metro sta">
 <h3>表格控件</h3>
 
-<div class="container">
-    <div id="mygrid" class="wrap-grid" role="grid">
-        <div class="topbar toolbar transparent">
-            <button class="small"><i class="icon-plus on-left fg-gray"></i>新增</button>
-            <button class="small"><i class="icon-minus on-left fg-gray"></i>删除</button>
+<div class="container" style='width:1280px'>
+    <div id="mygrid">
+        <div role="toolbar">
+            <button id="add"><i class="icon-plus" role="l_icon"></i>新增</button>
+            <button id="del"><i class="icon-minus" role="l_icon"></i>删除</button>
         </div>
-        <div class="wrap-grid-thead fg-white">
-            <table class="bg-bsBlue">
-                <tbody>
+        <div role="grid-head">
+            <table>
+                <thead>
                     <tr>
-                        <td class="text-left">姓名</th>
-                        <td class="text-left">电话号码</th>
-                        <td class="text-left">家庭住址</th>
+                        <th data-mapping="c">姓名</th>
+                        <th data-mapping="b">电话号码</th>
+                        <th data-mapping="a">家庭住址</th>
                     </tr>
-                </tbody>
+                </thead>
             </table>
         </div>
-        <div class="wrap-grid-tbody">
-            <table class="dataTable">
-                <tbody>
-                    <tr class="odd">
-                        <td>中国人</td>
-                        <td>13823122234,021-87633092</td>
-                        <td>上海市某某区某某路某某小区99号1102</td>
-                    </tr>
-                    <tr class="even">
-                        <td>Englisher, 老外的名字要长点</td>
-                        <td>13823122234</td>
-                        <td>Sige.uiw.8</td>
-                    </tr>
-                    <tr class="odd">
-                        <td>中国人</td>
-                        <td>13823122234,021-87633092</td>
-                        <td>上海市某某区某某路某某小区99号1102</td>
-                    </tr>
-                    <tr class="even">
-                        <td>Englisher, 老外的名字要长点</td>
-                        <td>13823122234</td>
-                        <td>Sige.uiw.8</td>
-                    </tr>
-                    <tr class="odd">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr class="odd">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr class="odd">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+        <div role="grid" data-page='yes'>
         </div>
     </div>
 </div>
 <script type="text/javascript">
     $(function() {
-        $("div#mygrid").sta_grid({
-                autoColumnWidth: true
-            });
+        //var grid = ;
+        var g = $.sta.grid({
+            autoColumnWidth: true,
+            rowCount: 10,
+            jsonData: {
+                local: {
+                    Data:[
+                        { a: 'howard', b: 'something', c: '中文试试'},
+                        { a: 'howard', b: 'something', c: '中文试试2'}
+                    ]
+                }
+            },
+            renderer: {
+                b: function ( rcd, rowIdx, colIdx ) {
+                    return "<i class='fg-darkRed'>" + rcd.b + " 列索引是：" + colIdx + " 行索引是:" + rowIdx + "</i>";
+                }
+            }
+        }, $("div#mygrid"));
+        $("div#mygrid").grid('doAlert', 57);
+        
+        $("button#add").on('click', function() {
+            alert("点了新增");
+        });
+        
     });
 </script>
 </body>

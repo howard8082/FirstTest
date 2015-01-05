@@ -1,4 +1,12 @@
-﻿.sta .wrap-grid {
+﻿.sta .show-view {
+    display: block;
+}
+
+.sta .hidden-view {
+    display: none;
+}
+
+.sta .wrap-grid {
     border: 1px solid #eaeaea;
     width: 100%;
 }
@@ -25,6 +33,11 @@
     margin-bottom: 0px;
 }
 
-.sta .wrap-grid .wrap-grid-thead table.bg-bsBlue {
+.sta .wrap-grid table thead th {
+    height: 36px;
+    border: 1px dotted #cccccc;
+}
+
+.sta .wrap-grid table thead th.bg-bsBlue {
     background-color: #428bca;
 }
