@@ -230,7 +230,7 @@
         
         /**
          * 将本地json数据，放入相应单元格中
-         * @json 对应配置中jsonData.local.Data中的数据
+         * @param json 对应配置中jsonData.local.Data中的数据
          */
         _fnPutLocalDataValue : function ( json ) {
             this._fnCleanCells();
@@ -262,6 +262,16 @@
         
         doAlert : function( v ) {
             //alert("Hello world " + v);
+            $.getJSON( this.options.jsonData.remote.url, 
+                        this.options.jsonData.remote.params(),
+                        function ( data ) {
+                            var msg = '';
+                            $.each( data, function ( k, v) {
+                                msg += data[ k ] + "|";
+                            });
+                            alert( msg );
+                        }
+                     );
         }
     });
 }))

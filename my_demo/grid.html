@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="../css/sta_grid.css">
 	<link rel="stylesheet" href="../css/site.css">
 	<script src="../external/jquery/jquery.js"></script>
+	<script src="../js/sta-helper.js"></script>
 	<script src="../ui/core.js"></script>
 	<script src="../ui/widget.js"></script>
 	<script src="../js/sta-grid.js"></script>
@@ -39,16 +40,27 @@
 </div>
 <script type="text/javascript">
     $(function() {
-        //var grid = ;
+
         var g = $.sta.grid({
             autoColumnWidth: true,
             rowCount: 10,
             jsonData: {
                 local: {
                     Data:[
-                        { a: 'howard', b: 'something', c: '中文试试'},
-                        { a: 'howard', b: 'something', c: '中文试试2'}
+                        { a: 'howard', b: "'something", c: '中文试试'},
+                        { a: 'howard', b: '\'something"', c: '中文试试2'}
                     ]
+                },
+                remote: {
+                    url: $.helper.toRoute( "MM", "Home", "Index" ),
+                    params: function () {
+                        var a = { };
+                        //a["p1"] = $("#add").html();
+                        $.extend( a, { p1: 3});
+                        $.extend( a, { p2: '阿斯蒂芬3dfe'});
+                        //$.fn.sta.convertToJson( {  } )
+                        return a;
+                    }
                 }
             },
             renderer: {
@@ -57,7 +69,7 @@
                 }
             }
         }, $("div#mygrid"));
-        $("div#mygrid").grid('doAlert', 57);
+        $("div#mygrid").grid('doAlert', "../json/test.json");
         
         $("button#add").on('click', function() {
             alert("点了新增");
