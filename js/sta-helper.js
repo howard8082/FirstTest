@@ -8,8 +8,9 @@
     // 项目上下文
     $.extend( $, { _vp_ : "/" } );
     
-    // $.fn.sta 定义
+    
     $.extend( $, {
+        // $.helper 定义
         helper : 
         {
             /**
@@ -25,6 +26,25 @@
             
             convertToJson : function ( selectors ) {
             }
+        },
+        
+        // $.console 定义
+        console : 
+        {
+            log : function () {},
+            debug : function () {},
+            error : function () {},
+            
+            group : function () {},
+            groupEnd : function () {}
+            // TODO More func
         }
     });
+    
+    if ( navigator.userAgent.toUpperCase().search(/MSIE/) === -1 ) {
+        $.extend( $, {
+            console : console
+        } );
+    }
+    
 })( jQuery );
