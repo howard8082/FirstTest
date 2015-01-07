@@ -1,0 +1,82 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>表格控件测试</title>
+	<link rel="stylesheet" href="../metrodemo/css/metro-bootstrap.css">
+	<link rel="stylesheet" href="../metrodemo/css/iconFont.css">
+	<link rel="stylesheet" href="../css/sta_grid.css">
+	<link rel="stylesheet" href="../css/site.css">
+	<script src="../external/jquery/jquery.js"></script>
+	<script src="../js/sta-helper.js"></script>
+	<script src="../ui/core.js"></script>
+	<script src="../ui/widget.js"></script>
+	<script src="../js/sta-grid.js"></script>
+	<script src="../js/sta-treegrid.js"></script>
+</head>
+<body class="metro sta">
+<h3>表格控件</h3>
+
+<div class="container" style='width:1280px'>
+    <div id="mygrid">
+        <div role="toolbar">
+            <button id="add"><i class="icon-plus"></i>新增</button>
+            <button id="del"><i class="icon-minus"></i>删除</button>
+        </div>
+        <div role="columnheader">
+            <table>
+                <thead>
+                    <tr>
+                        <th data-mapping="c">姓名</th>
+                        <th data-mapping="b">电话号码</th>
+                        <th data-mapping="a">家庭住址</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div role="treegrid" data-page='yes'>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function() {
+
+        var g = $.sta.treegrid({
+            autoColumnWidth: true,
+            rowCount: 10,
+            jsonData: {
+                local: {
+                    Data:[
+                        { a: 'howard', b: "'something", c: '中文试试'},
+                        { a: 'howard', b: '\'something"', c: '中文试试2'}
+                    ]
+                },
+                remote: {
+                    url: $.helper.toRoute( "MM", "Home", "Index" ),
+                    params: function () {
+                        var a = { };
+                        //a["p1"] = $("#add").html();
+                        $.extend( a, { p1: 3});
+                        $.extend( a, { p2: '阿斯蒂芬3dfe'});
+                        //$.fn.sta.convertToJson( {  } )
+                        return a;
+                    }
+                }
+            },
+            renderer: {
+                b: function ( rcd, rowIdx, colIdx ) {
+                    return "<i class='fg-darkRed'>" + rcd.b + " 列索引是：" + colIdx + " 行索引是:" + rowIdx + "</i>";
+                }
+            }
+        }, $("div#mygrid"));
+        //$("div#mygrid").treegrid('doAlert', "../json/test.json");
+        
+        $("button#add").on('click', function() {
+            alert("点了新增");
+        });
+        
+    });
+</script>
+</body>
+</html>
