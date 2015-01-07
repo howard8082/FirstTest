@@ -30,16 +30,31 @@
         // 表格当前各列的宽度
         _currentWidth: [ ],
         
-        _bodyCellsSel: "div[role='grid'] table tbody tr:nth-child(1) td",
+        _role : {
+            gridBody : 'grid',
+            gridHeader : 'columnheader'
+        },
         
-        _headerCellsSel: "div[role='grid-head'] table thead tr th",
+        _bodyCellsSel: null,
+        
+        _headerCellsSel: null,
         
         _mapping_key_order: [ ],      // 按顺序映射json的key
+        
+        __init__ : function () {
+            $.console.group( '初始化对象私有属性' );
+            this._bodyCellsSel = "div[role='" + this._role.gridBody + "'] table tbody tr:nth-child(1) td";
+            $.console.debug( "_bodyCellsSel : " + this._bodyCellsSel );
+            this._headerCellsSel = "div[role='" + this._role.gridHeader + "'] table thead tr th";
+            $.console.debug( "_headerCellsSel : " + this._headerCellsSel );
+            $.console.groupEnd();
+        },
         
         /**
          * 重写widget的_create函数。对表格对象进行处理
          */
         _create : function () {
+            this.__init__();
             // 0, 外层样式
             this.element.addClass( 'wrap-grid' );
             
@@ -53,10 +68,10 @@
             
             // Topbar 下各种默认元素汇集
             tb.find( "button" ).addClass( "small" );
-            tb.find( "button i[role='l_icon']" ).addClass( "on-left fg-gray" );
+            tb.find( "button i[class*='icon']" ).addClass( "on-left fg-gray" );
             
             // 2, 表头 样式
-            var gdh = this.element.find( "div[role='grid-head']" );
+            var gdh = this.element.find( "div[role='columnheader']" );
             gdh.find( "thead th" ).addClass( "text-left bg-bsBlue fg-white" );
             
             this._fnDrawEmptyGrid();
@@ -70,6 +85,10 @@
             this._refresh();
         },
         
+        _init: function () {
+            $.console.log( "_init" );
+        },
+        
         ///#region 私有函数
         _setOption : function ( key, value ) {
             alert('暂时不支持');
@@ -79,7 +98,7 @@
          * 绘制grid本体table结构
          */
         _fnDrawEmptyGrid : function () {
-            var innerGrid = this.element.find( "div[role='grid']" );
+            var innerGrid = this.element.find( "div[role='" + this._role.gridBody + "']" );
             innerGrid.append( "<table border='0'><tbody></tbody></table>" );
             innerGrid.find( "table" ).addClass( "dataTable" );
         },
@@ -88,7 +107,7 @@
          * 绘制所有空行
          */
         _fnDrawEmptyRows : function () {
-            var hc = this.element.find( "div[role='grid-head'] table thead tr th" ).length;
+            var hc = this.element.find( "div[role='columnheader'] table thead tr th" ).length;
             var d = (this.options.jsonData.local ? this.options.jsonData.local : this.options.jsonData.remote).Data;
             if ( this.options.rowCount !== -1 ) {
                 if ( d.length > this.options.rowCount ) {
@@ -214,7 +233,7 @@
                 return rcd[ key ];
             }
             
-            if ( this.options.renderer[ key ] === undefined ) {
+            if ( typeof this.options.renderer[ key ] === "undefined" ) {
                 return rcd[key];
             }
             
