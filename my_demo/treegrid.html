@@ -45,23 +45,32 @@
         var g = $.sta.treegrid({
             autoColumnWidth: true,
             rowCount: 10,
+            childrenKey : "leaves",
+            nodeFlag : {
+                key : "isNode",
+                nodeValue : "1",
+                leafValue : "0",
+                cIcon : "icon-arrow-right-2",
+                eIcon : "icon-arrow-down-2"
+            },
             jsonData: {
                 local: {
                     Data:[
-                        { a: 'howard', b: "'something", c: '中文试试'},
-                        { a: 'howard', b: '\'something"', c: '中文试试2'}
+                        { a: 'howard', b: "'something", c: '中文试试', isNode : '1'
+                            leaves : [
+                                { a: 'zhuly', b: 'asdflle', c: '也是中国人', isNode : '0' },
+                                { a: 'zhuly2', b: '我哈哈哈哈', c: '不是美国人', isNode : '0' },
+                                { a: '杨卫泽', b: '啊啊', c: '。。。', isNode : '1',
+                                    leaves : [
+                                        { a: '杨小泽', b: 'PPasdf', c: '。。。', isNode : '0' }
+                                    ]
+                                },
+                                { a: '节点', b: '但是我没有儿子', c: '打开就啥都没有', isNode : '1' },
+                                { a: '我再来', b: 'good job', c: '猜猜看', isNode : '0' }
+                            ]
+                        },
+                        { a: 'howard', b: '\'something"', c: '中文试试2', isNode : '0' }
                     ]
-                },
-                remote: {
-                    url: $.helper.toRoute( "MM", "Home", "Index" ),
-                    params: function () {
-                        var a = { };
-                        //a["p1"] = $("#add").html();
-                        $.extend( a, { p1: 3});
-                        $.extend( a, { p2: '阿斯蒂芬3dfe'});
-                        //$.fn.sta.convertToJson( {  } )
-                        return a;
-                    }
                 }
             },
             renderer: {
